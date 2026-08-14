@@ -100,6 +100,9 @@ func (s *Service) AddNode(name string, virtualNodes int) (*Node, error) {
 	if virtualNodes < 1 {
 		return nil, badRequest("virtualNodes must be a positive integer")
 	}
+	if virtualNodes > 10000 {
+		return nil, badRequest("virtualNodes too large (max 10000)")
+	}
 
 	s.mu.Lock()
 	defer s.mu.Unlock()
